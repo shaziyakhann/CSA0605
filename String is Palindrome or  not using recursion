@@ -1,0 +1,15 @@
+def is_prime(n, i=2):
+    if n <= 2:
+        return n == 2  # 2 is prime, 1 and numbers below are not
+    if n % i == 0:
+        return False  # If divisible by any number other than 1 and itself, it's not prime
+    if i * i > n:
+        return True  # If no divisors are found, it's prime
+    return is_prime(n, i + 1)
+
+# Test the function with a number
+number = 29
+if is_prime(number):
+    print(f"{number} is a prime number.")
+else:
+    print(f"{number} is not a prime number.")
