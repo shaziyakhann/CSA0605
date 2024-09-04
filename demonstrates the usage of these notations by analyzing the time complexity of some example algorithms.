@@ -1,0 +1,40 @@
+import time
+
+# Example of O(n) - Linear Time Complexity
+def linear_example(n):
+    total = 0
+    for i in range(n):
+        total += i
+    return total
+
+# Example of Θ(n^2) - Quadratic Time Complexity
+def quadratic_example(n):
+    total = 0
+    for i in range(n):
+        for j in range(n):
+            total += i * j
+    return total
+
+# Example of Ω(1) - Constant Time Complexity
+def constant_example(n):
+    return n * n
+
+# Analyze the time complexity
+def analyze_time_complexity(func, *args):
+    start_time = time.time()
+    result = func(*args)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Function {func.__name__} with arguments {args} took {execution_time:.6f} seconds to execute.")
+    return result
+
+# Test and analyze functions
+n = 1000
+print("Testing O(n) - Linear Time Complexity:")
+analyze_time_complexity(linear_example, n)
+
+print("\nTesting Θ(n^2) - Quadratic Time Complexity:")
+analyze_time_complexity(quadratic_example, n)
+
+print("\nTesting Ω(1) - Constant Time Complexity:")
+analyze_time_complexity(constant_example, n)
