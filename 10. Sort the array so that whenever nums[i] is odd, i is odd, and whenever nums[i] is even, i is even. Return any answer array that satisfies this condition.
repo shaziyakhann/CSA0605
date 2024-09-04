@@ -1,0 +1,23 @@
+def sort_by_index(nums):
+    # Separate even and odd numbers
+    evens = [num for num in nums if num % 2 == 0]
+    odds = [num for num in nums if num % 2 == 1]
+
+    # Initialize pointers for even and odd lists
+    even_index = 0
+    odd_index = 1
+
+    # Reconstruct the array
+    result = [0] * len(nums)
+    for num in evens:
+        result[even_index] = num
+        even_index += 2
+    for num in odds:
+        result[odd_index] = num
+        odd_index += 2
+
+    return result
+
+# Example usage
+nums = [4, 3, 2, 5, 6, 7]
+print(sort_by_index(nums))  # Output: [4, 3, 2, 5, 6, 7] or any valid permutation
