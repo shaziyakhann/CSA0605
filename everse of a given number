@@ -1,0 +1,13 @@
+def reverse_number_recursive(n, reversed_num=0):
+    if n == 0:
+        return reversed_num
+    else:
+        last_digit = n % 10
+        reversed_num = reversed_num * 10 + last_digit
+        return reverse_number_recursive(n // 10, reversed_num)
+
+# Test the function with a number
+number = 12345
+reversed_number = reverse_number_recursive(number)
+
+print(f"The reverse of the number {number} is {reversed_number}.")
