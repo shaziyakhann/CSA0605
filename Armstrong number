@@ -1,0 +1,23 @@
+def num_digits(n):
+    if n == 0:
+        return 0
+    else:
+        return 1 + num_digits(n // 10)
+
+def sum_of_powers(n, power):
+    if n == 0:
+        return 0
+    else:
+        return (n % 10) ** power + sum_of_powers(n // 10, power)
+
+def is_armstrong_number(n):
+    power = num_digits(n)
+    return n == sum_of_powers(n, power)
+
+# Test the function with a number
+number = 153
+
+if is_armstrong_number(number):
+    print(f"{number} is an Armstrong number.")
+else:
+    print(f"{number} is not an Armstrong number.")
