@@ -1,0 +1,14 @@
+def find_largest_element(arr):
+    if len(arr) == 1:
+        return arr[0]
+    else:
+        max_of_rest = find_largest_element(arr[1:])
+        # Compare the first element with the largest of the rest
+        if arr[0] > max_of_rest:
+            return arr[0]
+        else:
+            return max_of_rest
+arr = [12, 45, 2, 67, 34, 89, 22]
+
+largest_element = find_largest_element(arr)
+print(f"The largest element in the array is {largest_element}.")
