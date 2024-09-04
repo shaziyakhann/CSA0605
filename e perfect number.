@@ -1,0 +1,20 @@
+def is_perfect_number(n):
+    if n <= 1:
+        return False
+    
+    def sum_of_divisors(num, divisor=1):
+        if divisor > num // 2:
+            return 0
+        if num % divisor == 0:
+            return divisor + sum_of_divisors(num, divisor + 1)
+        else:
+            return sum_of_divisors(num, divisor + 1)
+    
+    return sum_of_divisors(n) == n
+
+# Test the function with a number
+number = 28
+if is_perfect_number(number):
+    print(f"{number} is a perfect number.")
+else:
+    print(f"{number} is not a perfect number.")
