@@ -1,0 +1,20 @@
+from collections import Counter
+
+def intersect(nums1, nums2):
+    # Count the occurrences of each element in both arrays
+    count1 = Counter(nums1)
+    count2 = Counter(nums2)
+    
+    # Find the intersection based on the minimum count in both arrays
+    intersection = []
+    for num in count1:
+        if num in count2:
+            # Append the minimum count of the current element in both arrays
+            intersection.extend([num] * min(count1[num], count2[num]))
+    
+    return intersection
+
+# Example usage
+nums1 = [1, 2, 2, 1]
+nums2 = [2, 2]
+print(intersect(nums1, nums2))  # Output: [2, 2]
