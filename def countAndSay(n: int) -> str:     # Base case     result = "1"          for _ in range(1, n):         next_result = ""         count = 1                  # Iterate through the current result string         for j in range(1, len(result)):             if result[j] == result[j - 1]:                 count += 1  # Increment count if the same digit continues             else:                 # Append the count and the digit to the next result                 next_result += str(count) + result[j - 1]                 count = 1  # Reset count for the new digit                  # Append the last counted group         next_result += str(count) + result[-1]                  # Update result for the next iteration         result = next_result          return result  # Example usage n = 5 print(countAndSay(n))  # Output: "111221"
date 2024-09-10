@@ -1,0 +1,19 @@
+# Example 1
+n = 1
+print(countAndSay(n))  # Output: "1"
+
+# Example 2
+n = 2
+print(countAndSay(n))  # Output: "11" (One 1)
+
+# Example 3
+n = 3
+print(countAndSay(n))  # Output: "21" (Two 1s)
+
+# Example 4
+n = 4
+print(countAndSay(n))  # Output: "1211" (One 2, One 1)
+
+# Example 5
+n = 6
+print(countAndSay(n))  # Output: "312211" (Three 1s, Two 2s, One 1)
