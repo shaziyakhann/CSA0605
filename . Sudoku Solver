@@ -1,0 +1,14 @@
+def solveSudoku(board):
+    def is_valid(num, row, col):
+        # Check if num is not in the current row
+        for c in range(9):
+            if board[row][c] == num:
+                return False
+        # Check if num is not in the current column
+        for r in range(9):
+            if board[r][col] == num:
+                return False
+        # Check if num is not in the current 3x3 sub-box
+        box_row_start = (row // 3) * 3
+        box_col_start = (col //
+        
