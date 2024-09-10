@@ -1,0 +1,18 @@
+def kidsWithCandies(candies, extraCandies):
+    # Step 1: Find the maximum number of candies any kid has
+    max_candies = max(candies)
+    
+    # Step 2: Initialize the result array
+    result = []
+    
+    # Step 3: Check each kid
+    for candy in candies:
+        # Step 4: Determine if the current kid can have the greatest number of candies
+        result.append(candy + extraCandies >= max_candies)
+    
+    return result
+
+# Example usage
+candies = [2, 3, 5, 1, 3]
+extraCandies = 3
+print(kidsWithCandies(candies, extraCandies))  # Output: [True, True, True, False, True]
