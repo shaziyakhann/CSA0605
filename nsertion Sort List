@@ -1,0 +1,43 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def insertionSortList(head: ListNode) -> ListNode:
+    # Create a new sorted list
+    sorted_head = None
+
+    # Traverse the original list
+    current = head
+    while current:
+        # Store the next node to process
+        next_node = current.next
+        
+        # Insert current into the sorted list
+        sorted_head = sortedInsert(sorted_head, current)
+        
+        # Move to the next node in the original list
+        current = next_node
+
+    return sorted_head
+
+def sortedInsert(sorted_head: ListNode, new_node: ListNode) -> ListNode:
+    # Special case for the head end
+    if sorted_head is None or sorted_head.val >= new_node.val:
+        new_node.next = sorted_head
+        return new_node  # New node becomes the new head
+
+    # Locate the node before the point of insertion
+    current = sorted_head
+    while current.next is not None and current.next.val < new_node.val:
+        current = current.next
+
+    # Insert the new node
+    new_node.next = current.next
+    current.next = new_node
+
+    return sorted_head
+
+# Helper function to create a linked list from a list
+def create_linked_list(values):
+    if not values
