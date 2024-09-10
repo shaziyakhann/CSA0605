@@ -1,0 +1,22 @@
+class BinaryMatrix:
+    def get(self, row: int, col: int) -> int:
+        # This method should be implemented to return the value at (row, col)
+        pass
+
+    def dimensions(self) -> List[int]:
+        # This method should be implemented to return the dimensions of the matrix
+        pass
+
+def leftMostColumnWithOne(binaryMatrix: BinaryMatrix) -> int:
+    rows, cols = binaryMatrix.dimensions()
+    row, col = 0, cols - 1
+    leftmost_col = -1
+
+    while row < rows and col >= 0:
+        if binaryMatrix.get(row, col) == 1:
+            leftmost_col = col  # Update the leftmost column index
+            col -= 1  # Move left
+        else:
+            row += 1  # Move down
+
+    return leftmost_col
