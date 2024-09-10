@@ -1,0 +1,22 @@
+def canBreak(s1: str, s2: str) -> bool:
+    # Sort both strings
+    sorted_s1 = sorted(s1)
+    sorted_s2 = sorted(s2)
+
+    # Check if sorted_s1 can break sorted_s2
+    def canBreakHelper(a, b):
+        for char_a, char_b in zip(a, b):
+            if char_a < char_b:
+                return False
+        return True
+
+    return canBreakHelper(sorted_s1, sorted_s2) or canBreakHelper(sorted_s2, sorted_s1)
+
+# Example usage
+s1 = "abc"
+s2 = "xya"
+print(canBreak(s1, s2))  # Output: True
+
+s1 = "abc"
+s2 = "def"
+print(canBreak(s1, s2))  # Output: False
