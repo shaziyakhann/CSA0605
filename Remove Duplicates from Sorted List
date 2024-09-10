@@ -1,0 +1,44 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def removeDuplicates(head: ListNode) -> ListNode:
+    current = head  # Start with the head of the linked list
+    
+    while current and current.next:  # Traverse until the end of the list
+        if current.val == current.next.val:  # If current and next values are the same
+            current.next = current.next.next  # Skip the next node
+        else:
+            current = current.next  # Move to the next node
+    
+    return head  # Return the modified linked list
+
+# Helper function to create a linked list from a list
+def create_linked_list(values):
+    if not values:
+        return None
+    head = ListNode(values[0])
+    current = head
+    for value in values[1:]:
+        current.next = ListNode(value)
+        current = current.next
+    return head
+
+# Helper function to print the linked list
+def print_linked_list(head):
+    current = head
+    while current:
+        print(current.val, end=" -> ")
+        current = current.next
+    print("None")
+
+# Example usage
+values = [1, 1, 2, 3, 3, 4]
+head = create_linked_list(values)
+print("Linked list before removing duplicates:")
+print_linked_list(head)
+
+head = removeDuplicates(head)
+print("Linked list after removing duplicates:")
+print_linked_list(head)
