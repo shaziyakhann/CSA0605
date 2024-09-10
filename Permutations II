@@ -1,0 +1,37 @@
+from typing import List
+
+def permuteUnique(nums: List[int]) -> List[List[int]]:
+    nums.sort()  # Sort the numbers to handle duplicates
+    result = []
+    used = [False] * len(nums)  # Track used numbers in the current permutation
+
+    def backtrack(current_permutation):
+        if len(current_permutation) == len(nums):
+            result.append(current_permutation[:])  # Append a copy of the current permutation
+            return
+        
+        for i in range(len(nums)):
+            if used[i]:
+                continue  # Skip used numbers
+            
+            # Skip duplicates: if the current number is the same as the previous one
+            # and the previous one is not used, skip this iteration
+            if i > 0 and nums[i] == nums[i - 1] and not used[i - 1]:
+                continue
+            
+            used[i] = True  # Mark the number as used
+            current_permutation.append(nums[i])  # Add the number to the current permutation
+            
+            backtrack(current_permutation)  # Recurse
+            
+            # Backtrack: remove the last added number and mark it as unused
+            current_permutation.pop()
+            used[i] = False
+
+    backtrack([])  # Start with an empty permutation
+    return result
+
+# Example usage
+nums = [1, 1, 2]
+output = permuteUnique(nums)
+print(output)  # Output: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]
