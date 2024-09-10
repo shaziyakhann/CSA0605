@@ -1,0 +1,36 @@
+def maxDifference(num: int) -> int:
+    num_str = str(num)
+    max_num = num_str
+    min_num = num_str
+
+    # Find the maximum number by replacing digits
+    for x in range(10):
+        for y in range(10):
+            if x == y:
+                continue
+            # Replace x with y in the original number
+            new_num = num_str.replace(str(x), str(y))
+            # Check for leading zeros
+            if new_num[0] != '0':
+                max_num = max(max_num, new_num)
+
+    # Find the minimum number by replacing digits
+    for x in range(10):
+        for y in range(10):
+            if x == y:
+                continue
+            # Replace x with y in the original number
+            new_num = num_str.replace(str(x), str(y))
+            # Check for leading zeros and ensure it's not zero
+            if new_num[0] != '0' and new_num != '0':
+                min_num = min(min_num, new_num)
+
+    # Convert back to integers and calculate the difference
+    return int(max_num) - int(min_num)
+
+# Example usage
+num = 555
+print(maxDifference(num))  # Output: 888
+
+num = 123456
+print(maxDifference(num))  # Output: 820000
