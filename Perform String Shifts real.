@@ -1,0 +1,31 @@
+def stringShift(s, shifts):
+    total_shift = 0
+    
+    # Calculate the net shift
+    for direction, amount in shifts:
+        if direction == 0:  # Left shift
+            total_shift -= amount
+        else:  # Right shift
+            total_shift += amount
+    
+    # Normalize the shift to be within the bounds of the string length
+    n = len(s)
+    effective_shift = total_shift % n
+    
+    # Perform the shift
+    if effective_shift > 0:
+        # Right shift
+        return s[-effective_shift:] + s[:-effective_shift]
+    elif effective_shift < 0:
+        # Left shift (convert to positive)
+        effective_shift = -effective_shift
+        return s[effective_shift:] + s[:effective_shift]
+    
+    return s  # No shift needed if effective_shift is 0
+
+# Example usage
+result1 = stringShift("abc", [[0, 1], [1, 2]])
+print(result1)  # Output: "cab"
+
+result2 = stringShift("abcdefg", [[1, 1], [1, 1], [0, 2], [1, 3]])
+print(result2)  # Output: "efgabcd"
