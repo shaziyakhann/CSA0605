@@ -1,0 +1,25 @@
+def destCity(paths):
+    # Create a set to store all cities with outgoing paths
+    cities_with_outgoing_paths = set()
+    
+    # Iterate through the paths and add the source city to the set
+    for path in paths:
+        cities_with_outgoing_paths.add(path[0])
+    
+    # Iterate through the paths again and find the city that is not in the set
+    for path in paths:
+        if path[1] not in cities_with_outgoing_paths:
+            return path[1]
+    
+    # If no city is found, return an empty string
+    return ""
+
+# Example usage
+paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
+print(destCity(paths))  # Output: "Sao Paulo"
+
+paths = [["B","C"],["D","B"],["C","A"]]
+print(destCity(paths))  # Output: "A"
+
+paths = [["A","Z"]]
+print(destCity(paths))  # Output: "
