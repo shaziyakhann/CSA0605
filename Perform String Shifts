@@ -1,0 +1,17 @@
+def string_shift(s, shift):
+    val = 0
+    for direction, amount in shift:
+        if direction == 0:
+            val -= amount
+        else:
+            val += amount
+    
+    effective_shift = val % len(s)
+    
+    result = ""
+    if effective_shift > 0:
+        result = s[-effective_shift:] + s[:-effective_shift]
+    else:
+        result = s[-effective_shift:] + s[:-effective_shift]
+    
+    return result
