@@ -1,0 +1,34 @@
+def insertion_sort(arr):
+    # Iterate through each element in the array starting from the second element
+    for i in range(1, len(arr)):
+        key = arr[i]  # The current element to be inserted
+        j = i - 1
+        
+        # Shift elements of arr[0..i-1], that are greater than key,
+        # to one position ahead of their current position
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        # Insert the key at the correct position
+        arr[j + 1] = key
+    
+    return arr
+
+# Example Scenarios
+
+if __name__ == "__main__":
+    # Scenario 1: Sorting Small Datasets
+    input_array1 = [4, 3, 5, 1]
+    sorted_array1 = insertion_sort(input_array1)
+    print("Sorted Array (Small Dataset):", sorted_array1)  # Output: [1, 3, 4, 5]
+
+    # Scenario 2: Real-Time Data Insertion
+    input_array2 = [10, 20, 15, 25, 30]
+    sorted_array2 = insertion_sort(input_array2)
+    print("Sorted Array (Real-Time Data Insertion):", sorted_array2)  # Output: [10, 15, 20, 25, 30]
+
+    # Scenario 3: Educational Tools
+    input_array3 = [7, 3, 9, 1]
+    sorted_array3 = insertion_sort(input_array3)
+    print("Sorted Array (Educational Tool):", sorted_array3)  # Output: [1, 3, 7, 9]
