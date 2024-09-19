@@ -1,0 +1,16 @@
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False  # Flag to track if a swap was made
+        for j in range(0, n - i - 1):  # Last i elements are already sorted
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]  # Swap
+                swapped = True  # A swap occurred
+        if not swapped:  # No swaps means the array is sorted
+            break
+    return arr
+
+# Test Cases
+if __name__ == "__main__":
+    # Test Case 1: Already sorted array
+    input
