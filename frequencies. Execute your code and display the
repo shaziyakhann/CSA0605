@@ -1,0 +1,28 @@
+def optimalBST(keys, freq, n):
+    cost = [[0 for x in range(n)] for y in range(n)]
+    root = [[0 for x in range(n)] for y in range(n)]
+
+    for i in range(n):
+        cost[i][i] = freq[i]
+
+    for len in range(2, n+1):
+        for i in range(n-len+1):
+            j = i + len - 1
+            cost[i][j] = float('inf')
+            for r in range(i, j+1):
+                c = ((cost[i][r-1] if r>i else 0) + 
+                     (cost[r+1][j] if r<j else 0) + 
+                     sum(freq[i:j+1]))
+                if c < cost[i][j]:
+                    cost[i][j] = c
+                    root[i][j] = r
+
+    return cost[0][n-1], root
+
+keys = ['A', 'B', 'C', 'D'] 
+freq = [0.1, 0.2, 0.4, 0.3]
+n = len(keys)
+
+optCost, rootMatrix = optimalBST(keys, freq, n)
+
+print(f"Optimal Cost
