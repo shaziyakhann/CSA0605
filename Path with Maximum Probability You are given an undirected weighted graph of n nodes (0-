@@ -1,0 +1,15 @@
+def maxProbability(n, edges, succProb, start, end):
+    graph = [[] for _ in range(n)]
+    for i, (u, v) in enumerate(edges):
+        graph[u].append((v, succProb[i]))
+        graph[v].append((u, succProb[i]))
+    
+    dist = [0.0] * n
+    dist[start] = 1.0
+    
+    for _ in range(n-1):
+        for u in range(n):
+            for v, p in graph[u]:
+                dist[v] = max(dist[v], dist[u] * p)
+    
+    return dist[end] if dist[end] > 0 else 0.0
