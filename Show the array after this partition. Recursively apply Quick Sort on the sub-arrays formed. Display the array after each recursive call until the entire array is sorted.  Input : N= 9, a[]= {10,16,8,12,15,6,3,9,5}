@@ -1,0 +1,58 @@
+def quick_sort(arr, low, high):
+    if low < high:
+        # Partition the array and get the pivot index
+        pivot_index = partition(arr, low, high)
+        
+        # Display the array after partitioning
+        print("Array after partitioning:", arr)
+        
+        # Recursively apply quick sort on the left and right sub-arrays
+        quick_sort(arr, low, pivot_index - 1)
+        quick_sort(arr, pivot_index + 1, high)
+
+def partition(arr, low, high):
+    pivot = arr[low]  # Choose the first element as pivot
+    left = low + 1
+    right = high
+    
+    while True:
+        # Increment left index while element is less than or equal to pivot
+        while left <= right and arr[left] <= pivot:
+            left += 1
+        # Decrement right index while element is greater than pivot
+        while left <= right and arr[right] >= pivot:
+            right -= 1
+        # If there is an element on the left that is greater than the pivot
+        # and an element on the right that is less than the pivot, swap them
+        if left > right:
+            break
+        else:
+            arr[left], arr[right] = arr[right], arr[left]
+    
+    # Swap the pivot element with the element at right index
+    arr[low], arr[right] = arr[right], arr[low]
+    
+    return right  # Return the index of the pivot
+
+# Test Cases
+def main():
+    # Test Case 1
+    array1 = [10, 16, 8, 12, 15, 6, 3, 9, 5]
+    print("Initial Array:", array1)
+    quick_sort(array1, 0, len(array1) - 1)
+    print("Sorted Array:", array1)  # Output: [3, 5, 6, 8, 9, 10, 12, 15, 16]
+
+    # Test Case 2
+    array2 = [12, 4, 78, 23, 45, 67, 89, 1]
+    print("\nInitial Array:", array2)
+    quick_sort(array2, 0, len(array2) - 1)
+    print("Sorted Array:", array2)  # Output: [1,4,12,23,45,67,78,89]
+
+    # Test Case 3
+    array3 = [38, 27, 43, 3, 9, 82, 10]
+    print("\nInitial Array:", array3)
+    quick_sort(array3, 0, len(array3) - 1)
+    print("Sorted Array:", array3)  # Output: [3,9,10,27,38,43,82]
+
+if __name__ == "__main__":
+    main()
