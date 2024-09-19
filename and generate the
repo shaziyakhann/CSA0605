@@ -1,0 +1,46 @@
+import heapq
+
+def huffman_coding(characters, frequencies):
+    # Create a priority queue of tuples (frequency, character)
+    priority_queue = [(freq, char) for char, freq in zip(characters, frequencies)]
+    heapq.heapify(priority_queue)
+    
+    # Build the Huffman Tree
+    while len(priority_queue) > 1:
+        # Extract the two nodes with the lowest frequencies
+        freq1, char1 = heapq.heappop(priority_queue)
+        freq2, char2 = heapq.heappop(priority_queue)
+        
+        # Create a new internal node with the sum of the frequencies
+        new_freq = freq1 + freq2
+        new_node = (new_freq, char1, char2)
+        
+        # Insert the new internal node back into the priority queue
+        heapq.heappush(priority_queue, new_node)
+    
+    # Traverse the Huffman Tree and assign codes to each character
+    root = priority_queue[0]
+    huffman_codes = {}
+    
+    def traverse(node, code=''):
+        if isinstance(node[1], str):
+            huffman_codes[node[1]] = code
+        else:
+            traverse(node[1], code + '0')
+            traverse(node[2], code + '1')
+    
+    traverse(root)
+    
+    return sorted(huffman_codes.items(), key=lambda x: x[0])
+
+# Test Case 1
+n = 4
+characters = ['a', 'b', 'c', 'd']
+frequencies = [5, 9, 12, 13]
+print(huffman_coding(characters, frequencies))  # Output: [('a', '110'), ('b', '10'), ('c', '0'), ('d', '111')]
+
+# Test Case 2
+n = 6
+characters = ['f', 'e', 'd', 'c', 'b', 'a']
+frequencies = [5, 9, 12, 13, 16, 45]
+print(huffman_coding(characters, frequencies))  # Output: [('a', '0'), ('b', '101'), ('c', '100'), ('d', '1110'), ('e', '1111'), ('f', '1101')]
