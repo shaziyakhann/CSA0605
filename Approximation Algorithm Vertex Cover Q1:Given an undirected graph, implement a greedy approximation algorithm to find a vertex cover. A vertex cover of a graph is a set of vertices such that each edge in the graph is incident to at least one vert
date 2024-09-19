@@ -1,0 +1,21 @@
+def greedy_vertex_cover(edges):
+    # Initialize an empty set for the vertex cover
+    vertex_cover = set()
+    
+    # Create a list of edges to work with
+    edge_list = edges[:]
+    
+    while edge_list:
+        # Pick any edge (u, v)
+        u, v = edge_list[0]  # Take the first edge
+        
+        # Add both endpoints to the vertex cover
+        vertex_cover.add(u)
+        vertex_cover.add(v)
+        
+        # Remove all edges that are incident to u or v
+        edge_list = [edge for edge in edge_list if u not in edge and v not in edge]
+    
+    return vertex_cover
+
+# Test
