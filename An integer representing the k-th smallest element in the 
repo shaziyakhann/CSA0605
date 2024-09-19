@@ -1,0 +1,29 @@
+def median_of_medians(arr, k):
+    if len(arr) <= 5:
+        return sorted(arr)[k - 1]
+
+    medians = []
+    for i in range(0, len(arr), 5):
+        chunk = arr[i:i + 5]
+        medians.append(sorted(chunk)[len(chunk) // 2])
+
+    pivot = median_of_medians(medians, len(medians) // 2 + 1)
+
+    left = [x for x in arr if x < pivot]
+    right = [x for x in arr if x > pivot]
+
+    if k <= len(left):
+        return median_of_medians(left, k)
+    elif k > len(arr) - len(right):
+        return median_of_medians(right, k - (len(arr) - len(right)))
+    else:
+        return pivot
+
+# Example usage
+arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+k1 = 6
+print(median_of_medians(arr1, k1))  # Output: 6
+
+arr2 = [23, 17, 31, 44, 55, 21, 20, 18, 19, 27]
+k2 = 5
+print(median_of_medians(arr2, k2))  # Output: 21
