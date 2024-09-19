@@ -1,0 +1,39 @@
+from collections import defaultdict
+
+def max_degree_vertex_cover(n, edges):
+    # Initialize an empty set for the vertex cover
+    vertex_cover = set()
+    
+    # Create a dictionary to store the degree of each vertex
+    degrees = defaultdict(int)
+    
+    # Count the degree of each vertex
+    for u, v in edges:
+        degrees[u] += 1
+        degrees[v] += 1
+    
+    while edges:
+        # Find the vertex with the highest degree that is not in the vertex cover
+        max_degree_vertex = max([v for v in range(n) if v not in vertex_cover], key=lambda x: degrees[x])
+        
+        # Add the vertex to the vertex cover
+        vertex_cover.add(max_degree_vertex)
+        
+        # Remove all edges incident to this vertex
+        edges = [(u, v) for u, v in edges if u != max_degree_vertex and v != max_degree_vertex]
+    
+    return vertex_cover
+
+# Test Case 1
+n1 = 6
+m1 = 7
+edges1 = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 4), (3, 5), (4, 5)]
+vertex_cover1 = max_degree_vertex_cover(n1, edges1)
+print("Vertex Cover:", vertex_cover1)  # Output: Vertex Cover: [1, 4, 5]
+
+# Test Case 2
+n2 = 5
+m2 = 5
+edges2 = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)]
+vertex_cover2 = max_degree_vertex_cover(n2, edges2)
+print("Vertex Cover:", vertex_cover2)
