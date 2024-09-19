@@ -1,0 +1,20 @@
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    comparisons = 0  # Initialize comparison counter
+
+    while low <= high:
+        mid = (low + high) // 2
+        comparisons += 1  # Increment comparison count
+        
+        # Print current state for debugging
+        print(f"Comparing target {target} with middle element {arr[mid]} at index {mid}")
+
+        if arr[mid] == target:
+            return mid, comparisons  # Return index and number of comparisons
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1, comparisons
