@@ -1,0 +1,35 @@
+from collections import defaultdict
+
+def fourSumCount(A, B, C, D):
+    # Step 1: Create a hashmap to store sums of A and B
+    sum_ab = defaultdict(int)
+    
+    # Calculate all possible sums of A[i] + B[j]
+    for a in A:
+        for b in B:
+            sum_ab[a + b] += 1
+    
+    # Step 2: Initialize count for tuples
+    count = 0
+    
+    # Calculate all possible sums of C[k] + D[l]
+    for c in C:
+        for d in D:
+            target_sum = -(c + d)  # We want A[i] + B[j] = - (C[k] + D[l])
+            if target_sum in sum_ab:
+                count += sum_ab[target_sum]
+    
+    return count
+
+# Example usage
+A1 = [1, 2]
+B1 = [-2, -1]
+C1 = [-1, 2]
+D1 = [0, 2]
+print(fourSumCount(A1, B1, C1, D1))  # Output: 2
+
+A2 = [0]
+B2 = [0]
+C2 = [0]
+D2 = [0]
+print(fourSumCount(A2, B2, C2, D2))  # Output: 1
