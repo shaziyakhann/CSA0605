@@ -1,0 +1,31 @@
+def solve_nqueens(n, m):
+    board = [[0 for _ in range(m)] for _ in range(n)]
+    solutions = []
+    solve_nqueens_util(board, 0, solutions)
+    return solutions
+
+def solve_nqueens_util(board, row, solutions):
+    n, m = len(board), len(board[0])
+    if row == n:
+        solutions.append([board[i].index(1) for i in range(n)])
+        return
+    
+    for col in range(m):
+        if is_safe(board, row, col, n, m):
+            board[row][col] = 1
+            solve_nqueens_util(board, row + 1, solutions)
+            board[row][col] = 0
+
+def is_safe(board, row, col, n, m):
+    # Check this row on the left side
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+    
+    # Check upper diagonal on the left side
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+    
+    # Check lower diagonal on the left side
+    for i, j in zip(range(row, n,
