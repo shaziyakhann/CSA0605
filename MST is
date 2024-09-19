@@ -1,0 +1,47 @@
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+        self.rank = [0] * size
+
+    def find(self, u):
+        if self.parent[u] != u:
+            self.parent[u] = self.find(self.parent[u])  # Path compression
+        return self.parent[u]
+
+    def union(self, u, v):
+        root_u = self.find(u)
+        root_v = self.find(v)
+
+        if root_u != root_v:
+            # Union by rank
+            if self.rank[root_u] > self.rank[root_v]:
+                self.parent[root_v] = root_u
+            elif self.rank[root_u] < self.rank[root_v]:
+                self.parent[root_v] = root_u
+            else:
+                self.parent[root_v] = root_u
+                self.rank[root_u] += 1
+
+
+def is_unique_mst(n, edges, given_mst):
+    # Calculate total weight of the given MST
+    mst_weight = sum(weight for u, v, weight in given_mst)
+
+    # Create a Union-Find structure for checking cycles
+    uf = UnionFind(n)
+
+    # Add edges from the given MST to the union-find structure
+    for u, v, _ in given_mst:
+        uf.union(u, v)
+
+    # Check for alternative edges
+    alternative_edge = None
+
+    for u, v, weight in edges:
+        # Skip edges that are already in the given MST
+        if (u, v, weight) not in given_mst and (v, u, weight) not in given_mst:
+            # Check if adding this edge creates a cycle
+            if uf.find(u) != uf.find(v):  # No cycle
+                # If this edge has equal or less weight than any in the MST,
+                # it can potentially create another valid MST.
+                alternative_edge = (u, v, weight)
