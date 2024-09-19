@@ -1,0 +1,35 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.indices = []
+
+class WordFilter:
+    def __init__(self, words):
+        self.trie = TrieNode()
+        for index, word in enumerate(words):
+            # Insert the word with all its prefixes into the Trie
+            for i in range(len(word) + 1):  # +1 to include the whole word as a prefix
+                prefix = word[:i]
+                if prefix not in self.trie.children:
+                    self.trie.children[prefix] = TrieNode()
+                self.trie.children[prefix].indices.append(index)
+
+    def f(self, pref, suff):
+        # Find the relevant prefix node
+        if pref not in self.trie.children:
+            return -1
+        
+        # Get the list of indices for this prefix
+        indices = self.trie.children[pref].indices
+        
+        # Search for a valid suffix in the words
+        for index in reversed(indices):  # Go from largest index to smallest
+            if words[index].endswith(suff):
+                return index
+        
+        return -1
+
+# Example usage:
+words = ["apple"]
+wordFilter = WordFilter(words)
+print(wordFilter.f("a", "e"))  # Output: 0
