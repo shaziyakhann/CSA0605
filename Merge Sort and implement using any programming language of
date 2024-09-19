@@ -1,0 +1,46 @@
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2  # Find the middle of the array
+        left_half = arr[:mid]  # Divide the array into two halves
+        right_half = arr[mid:]
+
+        merge_sort(left_half)  # Sort the first half
+        merge_sort(right_half)  # Sort the second half
+
+        i = j = k = 0
+
+        # Copy data to temporary arrays left_half and right_half
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Checking if any element was left
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+# Test cases
+print("Test Case 1:")
+N = 8
+a = [31, 23, 35, 27, 11, 21, 15, 28]
+merge_sort(a)
+print(f"Input: N = {N}, a = {a}")
+print(f"Output: {', '.join(map(str, a))}")
+
+print("\nTest Case 2:")
+N = 10
+b = [22, 34, 25, 36, 43, 67, 52, 13, 65, 17]
+merge_sort(b)
+print(f"Input: N = {N}, b = {b}")
+print(f"Output: {', '.join(map(str, b))}")
