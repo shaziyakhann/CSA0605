@@ -1,0 +1,34 @@
+def fullJustify(words, maxWidth):
+    result = []
+    current_line = []
+    num_of_letters = 0
+
+    for word in words:
+        # Check if adding the new word exceeds maxWidth
+        if num_of_letters + len(word) + len(current_line) > maxWidth:
+            # Justify the current line
+            for i in range(maxWidth - num_of_letters):
+                # Distribute spaces
+                current_line[i % (len(current_line) - 1 or 1)] += ' '
+            result.append(''.join(current_line))
+            current_line = []
+            num_of_letters = 0
+        
+        # Add the word to the current line
+        current_line.append(word)
+        num_of_letters += len(word)
+
+    # Handle the last line (left-justified)
+    last_line = ' '.join(current_line).ljust(maxWidth)
+    result.append(last_line)
+
+    return result
+
+# Example usage:
+words1 = ["This", "is", "an", "example", "of", "text", "justification."]
+maxWidth1 = 16
+print(fullJustify(words1, maxWidth1))
+
+words2 = ["What", "must", "be", "acknowledgment", "shall", "be"]
+maxWidth2 = 16
+print(fullJustify(words2, maxWidth2))
