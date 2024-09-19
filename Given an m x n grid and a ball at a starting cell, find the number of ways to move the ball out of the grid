@@ -1,0 +1,12 @@
+def find_paths(m, n, N, startRow, startColumn):
+    MOD = 10**9 + 7
+
+    # Directions for moving the ball
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+    # Memoization for dynamic programming
+    dp = [[0] * n for _ in range(m)]
+    dp[startRow][startColumn] = 1
+
+    # Iterate for N moves
+    for _ in range(N):
