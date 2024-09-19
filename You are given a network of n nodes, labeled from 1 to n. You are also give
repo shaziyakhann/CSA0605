@@ -1,0 +1,23 @@
+def networkDelayTime(times, n, k):
+    # Initialize distance matrix
+    inf = float('inf')
+    distance = [[inf] * (n + 1) for _ in range(n + 1)]
+    
+    for u, v, w in times:
+        distance[u][v] = min(distance[u][v], w)
+    
+    # Set distance to self as zero
+    for i in range(1, n + 1):
+        distance[i][i] = 0
+    
+    # Floyd-Warshall algorithm
+    for k in range(1, n + 1):
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                if distance[i][j] > distance[i][k] + distance[k][j]:
+                    distance[i][j] = distance[i][k] + distance[k][j]
+    
+    # Find maximum time from node k
+    max_time = max(distance[k][1:])
+    
+    return max_time if max_time < inf else -1
