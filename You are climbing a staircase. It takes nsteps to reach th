@@ -1,0 +1,24 @@
+def generate_subsets(S):
+    # Sort the input to ensure lexicographical order
+    S.sort()
+    result = []
+    
+    def backtrack(start, path):
+        # Append the current subset (path) to the result
+        result.append(path[:])  # Append a copy of path
+        
+        for i in range(start, len(S)):
+            # Include S[i] in the current subset
+            path.append(S[i])
+            # Move on to the next element
+            backtrack(i + 1, path)
+            # Backtrack: remove the last element added
+            path.pop()
+
+    backtrack(0, [])
+    return result
+
+# Example usage:
+A = [1, 2, 3]
+subsets = generate_subsets(A)
+print(subsets)
