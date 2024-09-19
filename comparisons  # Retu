@@ -1,0 +1,34 @@
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    comparisons = 0  # Initialize comparison counter
+
+    while low <= high:
+        mid = (low + high) // 2
+        comparisons += 1  # Increment comparison count
+        
+        # Print current state for debugging
+        print(f"Comparing target {target} with middle element {arr[mid]} at index {mid}")
+
+        if arr[mid] == target:
+            return mid, comparisons  # Return index and number of comparisons
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1, comparisons  # Return -1 if not found
+
+# Test Case
+if __name__ == "__main__":
+    array = [5, 10, 15, 20, 25, 30, 35, 40, 45]
+    target_value = 20
+    
+    index, comparison_count = binary_search(array, target_value)
+    
+    if index != -1:
+        print(f"Element {target_value} found at index: {index}")
+    else:
+        print(f"Element {target_value} not found in the array.")
+    
+    print(f"Total comparisons made: {comparison_count}")
