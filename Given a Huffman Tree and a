@@ -1,0 +1,70 @@
+class HuffmanNode:
+    def __init__(self, char, freq):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+
+def build_huffman_tree(characters, frequencies):
+    import heapq
+    
+    # Create a priority queue (min-heap) of Huffman nodes
+    heap = []
+    for char, freq in zip(characters, frequencies):
+        heapq.heappush(heap, (freq, HuffmanNode(char, freq)))
+
+    while len(heap) > 1:
+        # Pop two nodes with the smallest frequencies
+        left_freq, left_node = heapq.heappop(heap)
+        right_freq, right_node = heapq.heappop(heap)
+        
+        # Create a new internal node with these two nodes as children
+        merged_node = HuffmanNode(None, left_freq + right_freq)
+        merged_node.left = left_node
+        merged_node.right = right_node
+        
+        # Push the new node back into the priority queue
+        heapq.heappush(heap, (merged_node.freq, merged_node))
+
+    # The remaining node is the root of the Huffman Tree
+    return heap[0][1]
+
+def decode_huffman_tree(root, encoded_string):
+    decoded_string = []
+    current_node = root
+    
+    for bit in encoded_string:
+        # Traverse the tree based on the bit
+        if bit == '0':
+            current_node = current_node.left
+        else:
+            current_node = current_node.right
+        
+        # If we reach a leaf node, append the character to the result
+        if current_node.left is None and current_node.right is None:
+            decoded_string.append(current_node.char)
+            current_node = root  # Go back to the root for the next character
+    
+    return ''.join(decoded_string)
+
+# Test Case 1
+n1 = 4
+characters1 = ['a', 'b', 'c', 'd']
+frequencies1 = [5, 9, 12, 13]
+encoded_string1 = '1101100111110'
+
+# Build Huffman Tree and decode
+root1 = build_huffman_tree(characters1, frequencies1)
+decoded_message1 = decode_huffman_tree(root1, encoded_string1)
+print(decoded_message1)  # Output: "abacd"
+
+# Test Case 2
+n2 = 6
+characters2 = ['f', 'e', 'd', 'c', 'b', 'a']
+frequencies2 = [5, 9, 12, 13, 16, 45]
+encoded_string2 = '101110010'
+
+# Build Huffman Tree and decode
+root2 = build_huffman_tree(characters2, frequencies2)
+decoded_message2 = decode_huffman_tree(root2, encoded_string2)
+print(decoded_message2)  # Output: Decoded message based on provided encoding
