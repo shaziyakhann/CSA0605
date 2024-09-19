@@ -1,0 +1,53 @@
+def quick_sort(arr, low, high):
+    if low < high:
+        # Partition the array and get the pivot index
+        pivot_index = partition(arr, low, high)
+        
+        # Display the array after partitioning
+        print("Array after partitioning:", arr)
+        
+        # Recursively apply quick sort on the left and right sub-arrays
+        quick_sort(arr, low, pivot_index - 1)
+        quick_sort(arr, pivot_index + 1, high)
+
+def partition(arr, low, high):
+    mid = low + (high - low) // 2  # Choose the middle element as pivot
+    pivot = arr[mid]
+    
+    # Move pivot to the end
+    arr[mid], arr[high] = arr[high], arr[mid]
+    
+    i = low - 1  # Pointer for the smaller element
+    
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]  # Swap if element is smaller than or equal to pivot
+    
+    # Swap the pivot back to its correct position
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    
+    return i + 1  # Return the index of the pivot
+
+# Test Cases
+def main():
+    # Test Case 1
+    array1 = [19, 72, 35, 46, 58, 91, 22, 31]
+    print("Initial Array:", array1)
+    quick_sort(array1, 0, len(array1) - 1)
+    print("Sorted Array:", array1)  # Output: [19,22,31,35,46,58,72,91]
+
+    # Test Case 2
+    array2 = [31, 23, 35, 27, 11, 21, 15, 28]
+    print("\nInitial Array:", array2)
+    quick_sort(array2, 0, len(array2) - 1)
+    print("Sorted Array:", array2)  # Output: [11,15,21,23,27,28,31,35]
+
+    # Test Case 3
+    array3 = [22, 34, 25, 36]
+    print("\nInitial Array:", array3)
+    quick_sort(array3, 0, len(array3) - 1)
+    print("Sorted Array:", array3)  # Output: [22,25,34,36]
+
+if __name__ == "__main__":
+    main()
