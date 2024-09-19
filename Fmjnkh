@@ -1,0 +1,30 @@
+def is_safe(graph, vertex, pos, path):
+    # Check if the current vertex and the last vertex in the path are connected
+    if graph[path[pos - 1]][vertex] == 0:
+        return False
+
+    # Check if the current vertex is already in the path
+    for i in range(pos):
+        if path[i] == vertex:
+            return False
+
+    return True
+
+def hamiltonian_cycle(graph, n, path, pos):
+    # Base case: If all vertices are included in the path and there is an edge from the last vertex to the first vertex
+    if pos == n:
+        if graph[path[pos - 1]][path[0]] == 1:
+            return True
+        else:
+            return False
+
+    # Try all vertices as the next vertex in the path
+    for vertex in range(n):
+        if is_safe(graph, vertex, pos, path):
+            path[pos] = vertex
+
+            # Recur to construct the rest of the path
+            if hamiltonian_cycle(graph, n, path, pos + 1):
+                return True
+
+            # If adding vertex doesn't lead to a solution, remove the vertex
