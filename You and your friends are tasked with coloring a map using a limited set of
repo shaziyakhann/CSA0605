@@ -1,0 +1,33 @@
+def graph_coloring(edges, num_vertices):
+    # Create an adjacency list
+    graph = [[] for _ in range(num_vertices)]
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    # Initialize color array
+    colors = [-1] * num_vertices  # -1 means uncolored
+
+    # Function to check if a color can be assigned to a vertex
+    def can_color(vertex, color):
+        for neighbor in graph[vertex]:
+            if colors[neighbor] == color:
+                return False
+        return True
+
+    # Assign colors to vertices
+    for vertex in range(num_vertices):
+        if colors[vertex] == -1:  # If the vertex is uncolored
+            for color in range(num_vertices):  # Try different colors
+                if can_color(vertex, color):
+                    colors[vertex] = color
+                    break
+
+    # Count distinct colors used
+    unique_colors = set(colors)
+    
+    return len(unique_colors), colors
+
+def maximize_your_coloring(edges, num_vertices):
+    # Get the number of colors used and the coloring result
+    num_colors_used, colored
