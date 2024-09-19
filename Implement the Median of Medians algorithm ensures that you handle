@@ -1,0 +1,47 @@
+def median_of_medians(arr):
+    # Base case: if the list has 5 or fewer elements, return the median directly
+    if len(arr) <= 5:
+        return sorted(arr)[len(arr) // 2]
+
+    # Split arr into chunks of 5
+    chunks = [arr[i:i + 5] for i in range(0, len(arr), 5)]
+    medians = [sorted(chunk)[len(chunk) // 2] for chunk in chunks]
+
+    # Recursively find the median of medians
+    return median_of_medians(medians)
+
+def partition(arr, pivot):
+    left = []
+    right = []
+    for x in arr:
+        if x < pivot:
+            left.append(x)
+        elif x > pivot:
+            right.append(x)
+    return left, right
+
+def select(arr, k):
+    if len(arr) == 1:
+        return arr[0]  # Only one element
+
+    pivot = median_of_medians(arr)
+    left, right = partition(arr, pivot)
+
+    # Determine the size of the left partition
+    len_left = len(left)
+
+    if k < len_left:
+        return select(left, k)  # k-th smallest is in the left partition
+    elif k > len_left:
+        return select(right, k - len_left - 1)  # Adjust k for right partition
+    else:
+        return pivot  # The pivot is the k-th smallest
+
+# Example usage
+arr1 = [12, 3, 5, 7, 19]
+k1 = 2
+print(select(arr1, k1))  # Output: 5
+
+arr2 = [12, 3, 5, 7, 4, 19, 26]
+k2 = 3
+print(select(arr2, k2))  # Output: 7
