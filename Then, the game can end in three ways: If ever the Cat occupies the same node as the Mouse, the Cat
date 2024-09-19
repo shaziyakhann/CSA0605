@@ -1,0 +1,20 @@
+def catMouseGame(graph):
+    from functools import lru_cache
+
+    @lru_cache(None)
+    def dfs(mouse_pos, cat_pos, turn):
+        if mouse_pos == 0:
+            return 1  # Mouse wins
+        if mouse_pos == cat_pos:
+            return 2  # Cat wins
+        
+        if turn == 0:  # Mouse's turn
+            for next_mouse_pos in graph[mouse_pos]:
+                result = dfs(next_mouse_pos, cat_pos, 1)
+                if result == 1:  # If there's a way for Mouse to win
+                    return 1
+            return 0  # If no winning move found, it's a draw
+        else:  # Cat's turn
+            for next_cat_pos in graph[cat_pos]:
+                if next_cat_pos != 0:  # Cat cannot move to hole
+                    result = dfs(mouse_pos, next
