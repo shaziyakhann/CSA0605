@@ -1,0 +1,4 @@
+def bubble_sort(arr):
+    if len(arr) == 0:
+        return arr
+    # Continue with sorting logic...
