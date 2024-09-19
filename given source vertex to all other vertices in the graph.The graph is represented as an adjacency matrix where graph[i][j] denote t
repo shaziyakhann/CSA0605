@@ -1,0 +1,43 @@
+import heapq
+
+def dijkstra(n, graph, source):
+    # Initialize distances from source to all vertices
+    distances = [float('inf')] * n
+    distances[source] = 0
+    
+    # Priority queue to hold vertices to be processed
+    priority_queue = [(0, source)]  # (distance, vertex)
+    
+    while priority_queue:
+        current_distance, current_vertex = heapq.heappop(priority_queue)
+        
+        # If the popped vertex distance is greater than the recorded distance, skip processing
+        if current_distance > distances[current_vertex]:
+            continue
+        
+        # Explore neighbors
+        for neighbor in range(n):
+            weight = graph[current_vertex][neighbor]
+            if weight != float('inf'):  # Check if there is an edge
+                distance = current_distance + weight
+                
+                # Only consider this new path if it's better
+                if distance < distances[neighbor]:
+                    distances[neighbor] = distance
+                    heapq.heappush(priority_queue, (distance, neighbor))
+    
+    return distances
+
+# Test Case 1
+n = 5
+graph = [
+    [0, 10, 3, float('inf'), float('inf')],
+    [float('inf'), 0, 1, 2, float('inf')],
+    [float('inf'), 4, 0, 8, 2],
+    [float('inf'), float('inf'), float('inf'), 0, 7],
+    [float('inf'), float('inf'), float('inf'), float('inf'), 0]
+]
+
+source = 0
+shortest_paths = dijkstra(n, graph, source)
+print("Shortest paths from source:", shortest_paths)  # Output the shortest paths from the source vertex
